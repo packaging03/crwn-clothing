@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithRedirect,
+//   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
@@ -43,7 +43,7 @@ export const auth = getAuth();
 //sign in with google popup
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 //sign in with google redirect
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+// export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 //get the database instance (firestore)
 export const db = getFirestore();
