@@ -31,16 +31,21 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+//instantiate google auth provider, you can as do the same for Facebook etc.
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+//sign in with google popup
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+//sign in with google redirect
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
+//get the database instance (firestore)
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
