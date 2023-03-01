@@ -17,7 +17,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  //console.log(formFields);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -31,20 +30,24 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password);
+      const response = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
       console.log(response);
-      // const { user } = await createAuthUserWithEmailAndPassword(
-      //   email,
-      //   password
-      // );
-      // await createUserDocumentFromAuth(user, { displayName });
+
       resetFormFields();
     } catch (error) {
-      // if (error.code === "auth/email-already-in-use") {
-      //   alert("Cannot create user, email already in use");
-      // } else {
-      //   console.log("user creation encountered an error", error);
-      // }
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Incorrect Password for email!");
+          break;
+        case "auth/user-not-found":
+          alert("No user associated with this email");
+          break;
+        default:
+          console.log(error);
+      }
     }
   };
 
@@ -77,7 +80,7 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google sign in
           </Button>
         </div>
