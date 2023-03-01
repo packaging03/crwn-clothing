@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 // import { getRedirectResult } from "firebase/auth";
 import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
+import SignInForm from "../../components/sign-in-form/sign-in-form.component";
 import {
   //   auth,
   signInWithGooglePopup,
@@ -8,7 +9,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
-const SignIn = () => {
+const Authentication = () => {
   //   useEffect(() => {
   //     //we call signinwithGoogleRedirect directly but we need to declar this useeffect to be able to get the last
   //     //auth operation that was done when the app redirected
@@ -21,16 +22,13 @@ const SignIn = () => {
   //     fetchResult();
   //   }, []);
 
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
-  };
+ 
 
   return (
     <div>
       <h1>Sign In Page</h1>
 
-      <button onClick={logGoogleUser}>Sign In with Google Popup</button>
+     <SignInForm/>
       <SignUpForm />
       {/* <button onClick={signInWithGoogleRedirect}>
         Sign In with Google Redirect
@@ -39,4 +37,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Authentication;
