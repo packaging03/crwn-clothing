@@ -2,13 +2,12 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  //   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import {
@@ -16,12 +15,9 @@ import {
   doc,
   getDoc,
   setDoc,
+  collection,
+  writeBatch,
 } from "firebase/firestore";
-//import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAV5ji6A_3pF3Y9hyHIoIj2rSLvrXKjlJk",
@@ -52,6 +48,22 @@ export const signInWithGooglePopup = () =>
 
 //get the database instance (firestore)
 export const db = getFirestore();
+
+//method to upload/save data into firebase db
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("done uploading data");
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -90,6 +102,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const signOutUser  = async () => await signOut(auth);
+export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = async (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = async (callback) =>
+  onAuthStateChanged(auth, callback);
