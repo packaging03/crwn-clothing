@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import SHOP_DATA from "../shop-data";
-import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils";
+import {
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
+} from "../utils/firebase/firebase.utils";
 
 //this is the actual value you want to access...
 export const ProductsContext = createContext({
@@ -13,6 +16,14 @@ export const ProductsProvider = ({ children }) => {
   //   useEffect(() => {
   //     addCollectionAndDocuments("categories", SHOP_DATA);
   //   }, []);
+
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoryMap = await getCategoriesAndDocuments();
+      console.log(categoryMap);
+    };
+    getCategoriesMap();
+  }, []);
 
   const value = { products };
 
