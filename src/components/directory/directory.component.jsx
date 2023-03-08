@@ -1,10 +1,10 @@
-import CategoryItem from "../category-tem/category-item.component";
+import DirectoryItem from "../directory-item/directory-item.component";
 
 const Directory = ({ categories }) => {
   return (
     <div className="categories-container">
       {categories.map((category, id) => (
-        <CategoryItem key={id} category={category} />
+        <DirectoryItem key={id} category={category} />
       ))}
     </div>
   );
