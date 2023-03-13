@@ -23,10 +23,6 @@ const userReducer = (state, action) => {
         ...state,
         currentUser: payload,
       };
-    // case 'increment':
-    //   return {
-    //     currentUser:payload
-    //   }
     default:
       throw new Error(`Unhandled type ${type} in  userReducer`);
   }
