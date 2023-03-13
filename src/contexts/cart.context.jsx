@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
   //check if item already exist in the cartitem
@@ -48,6 +48,26 @@ export const CartContext = createContext({
   removeItemFromCart: () => {},
   cartTotal: 0,
 });
+
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal: 0,
+};
+
+const cartReducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'ADD_TOCART':
+      return {
+        ...state,
+        cart
+      }
+    default:
+      throw new Error(`unhandled type of ${type} in cartReducer`);
+  }
+};
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
