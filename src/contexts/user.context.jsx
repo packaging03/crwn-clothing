@@ -38,7 +38,6 @@ export const UserProvider = ({ children }) => {
 
   const setCurrentUser = (user) => {
     dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
-    //dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
   };
   const value = { currentUser, setCurrentUser };
 
@@ -49,7 +48,7 @@ export const UserProvider = ({ children }) => {
       }
       setCurrentUser(user);
     });
-    //return unsubscribe;
+    return unsubscribe;
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
